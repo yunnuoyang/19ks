@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwl.mapper.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.bwl.pojo.Goods">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="goodsType" jdbcType="BIGINT" property="goodstype" />
+    <result column="goodsName" jdbcType="VARCHAR" property="goodsname" />
+    <result column="productTime" jdbcType="DATE" property="producttime" />
+    <result column="saveTime" jdbcType="DATE" property="savetime" />
+    <result column="amount" jdbcType="BIGINT" property="amount" />
+    <result column="price" jdbcType="BIGINT" property="price" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, goodsType, goodsName, productTime, saveTime, amount, price
+  </sql>
+  <select id="selectByExample" parameterType="com.bwl.pojo.GoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from goods
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bwl.pojo.GoodsExample">
+    delete from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bwl.pojo.Goods">
+    insert into goods (id, goodsType, goodsName, 
+      productTime, saveTime, amount, 
+      price)
+    values (#{id,jdbcType=VARCHAR}, #{goodstype,jdbcType=BIGINT}, #{goodsname,jdbcType=VARCHAR}, 
+      #{producttime,jdbcType=DATE}, #{savetime,jdbcType=DATE}, #{amount,jdbcType=BIGINT}, 
+      #{price,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bwl.pojo.Goods">
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="goodstype != null">
+        goodsType,
+      </if>
+      <if test="goodsname != null">
+        goodsName,
+      </if>
+      <if test="producttime != null">
+        productTime,
+      </if>
+      <if test="savetime != null">
+        saveTime,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstype != null">
+        #{goodstype,jdbcType=BIGINT},
+      </if>
+      <if test="goodsname != null">
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="producttime != null">
+        #{producttime,jdbcType=DATE},
+      </if>
+      <if test="savetime != null">
+        #{savetime,jdbcType=DATE},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bwl.pojo.GoodsExample" resultType="java.lang.Integer">
+    select count(*) from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update goods
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodstype != null">
+        goodsType = #{record.goodstype,jdbcType=BIGINT},
+      </if>
+      <if test="record.goodsname != null">
+        goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.producttime != null">
+        productTime = #{record.producttime,jdbcType=DATE},
+      </if>
+      <if test="record.savetime != null">
+        saveTime = #{record.savetime,jdbcType=DATE},
+      </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=BIGINT},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update goods
+    set id = #{record.id,jdbcType=VARCHAR},
+      goodsType = #{record.goodstype,jdbcType=BIGINT},
+      goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      productTime = #{record.producttime,jdbcType=DATE},
+      saveTime = #{record.savetime,jdbcType=DATE},
+      amount = #{record.amount,jdbcType=BIGINT},
+      price = #{record.price,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bwl.pojo.Goods">
+    update goods
+    <set>
+      <if test="goodstype != null">
+        goodsType = #{goodstype,jdbcType=BIGINT},
+      </if>
+      <if test="goodsname != null">
+        goodsName = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="producttime != null">
+        productTime = #{producttime,jdbcType=DATE},
+      </if>
+      <if test="savetime != null">
+        saveTime = #{savetime,jdbcType=DATE},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bwl.pojo.Goods">
+    update goods
+    set goodsType = #{goodstype,jdbcType=BIGINT},
+      goodsName = #{goodsname,jdbcType=VARCHAR},
+      productTime = #{producttime,jdbcType=DATE},
+      saveTime = #{savetime,jdbcType=DATE},
+      amount = #{amount,jdbcType=BIGINT},
+      price = #{price,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.bwl.pojo.Goods">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="goodsType" jdbcType="BIGINT" property="goodstype" />
+    <result column="goodsName" jdbcType="VARCHAR" property="goodsname" />
+    <result column="productTime" jdbcType="DATE" property="producttime" />
+    <result column="saveTime" jdbcType="DATE" property="savetime" />
+    <result column="amount" jdbcType="BIGINT" property="amount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, goodsType, goodsName, productTime, saveTime, amount
+  </sql>
+  <select id="selectByExample" parameterType="com.bwl.pojo.GoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from goods
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bwl.pojo.GoodsExample">
+    delete from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bwl.pojo.Goods">
+    insert into goods (id, goodsType, goodsName, 
+      productTime, saveTime, amount
+      )
+    values (#{id,jdbcType=VARCHAR}, #{goodstype,jdbcType=BIGINT}, #{goodsname,jdbcType=VARCHAR}, 
+      #{producttime,jdbcType=DATE}, #{savetime,jdbcType=DATE}, #{amount,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bwl.pojo.Goods">
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="goodstype != null">
+        goodsType,
+      </if>
+      <if test="goodsname != null">
+        goodsName,
+      </if>
+      <if test="producttime != null">
+        productTime,
+      </if>
+      <if test="savetime != null">
+        saveTime,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstype != null">
+        #{goodstype,jdbcType=BIGINT},
+      </if>
+      <if test="goodsname != null">
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="producttime != null">
+        #{producttime,jdbcType=DATE},
+      </if>
+      <if test="savetime != null">
+        #{savetime,jdbcType=DATE},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bwl.pojo.GoodsExample" resultType="java.lang.Integer">
+    select count(*) from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update goods
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodstype != null">
+        goodsType = #{record.goodstype,jdbcType=BIGINT},
+      </if>
+      <if test="record.goodsname != null">
+        goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.producttime != null">
+        productTime = #{record.producttime,jdbcType=DATE},
+      </if>
+      <if test="record.savetime != null">
+        saveTime = #{record.savetime,jdbcType=DATE},
+      </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update goods
+    set id = #{record.id,jdbcType=VARCHAR},
+      goodsType = #{record.goodstype,jdbcType=BIGINT},
+      goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      productTime = #{record.producttime,jdbcType=DATE},
+      saveTime = #{record.savetime,jdbcType=DATE},
+      amount = #{record.amount,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bwl.pojo.Goods">
+    update goods
+    <set>
+      <if test="goodstype != null">
+        goodsType = #{goodstype,jdbcType=BIGINT},
+      </if>
+      <if test="goodsname != null">
+        goodsName = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="producttime != null">
+        productTime = #{producttime,jdbcType=DATE},
+      </if>
+      <if test="savetime != null">
+        saveTime = #{savetime,jdbcType=DATE},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bwl.pojo.Goods">
+    update goods
+    set goodsType = #{goodstype,jdbcType=BIGINT},
+      goodsName = #{goodsname,jdbcType=VARCHAR},
+      productTime = #{producttime,jdbcType=DATE},
+      saveTime = #{savetime,jdbcType=DATE},
+      amount = #{amount,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.bwl.pojo.Goods">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="goodsType" jdbcType="BIGINT" property="goodstype" />
+    <result column="goodsName" jdbcType="VARCHAR" property="goodsname" />
+    <result column="productTime" jdbcType="DATE" property="producttime" />
+    <result column="saveTime" jdbcType="DATE" property="savetime" />
+    <result column="amount" jdbcType="BIGINT" property="amount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, goodsType, goodsName, productTime, saveTime, amount
+  </sql>
+  <select id="selectByExample" parameterType="com.bwl.pojo.GoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from goods
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bwl.pojo.GoodsExample">
+    delete from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bwl.pojo.Goods">
+    insert into goods (id, goodsType, goodsName, 
+      productTime, saveTime, amount
+      )
+    values (#{id,jdbcType=VARCHAR}, #{goodstype,jdbcType=BIGINT}, #{goodsname,jdbcType=VARCHAR}, 
+      #{producttime,jdbcType=DATE}, #{savetime,jdbcType=DATE}, #{amount,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bwl.pojo.Goods">
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="goodstype != null">
+        goodsType,
+      </if>
+      <if test="goodsname != null">
+        goodsName,
+      </if>
+      <if test="producttime != null">
+        productTime,
+      </if>
+      <if test="savetime != null">
+        saveTime,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstype != null">
+        #{goodstype,jdbcType=BIGINT},
+      </if>
+      <if test="goodsname != null">
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="producttime != null">
+        #{producttime,jdbcType=DATE},
+      </if>
+      <if test="savetime != null">
+        #{savetime,jdbcType=DATE},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bwl.pojo.GoodsExample" resultType="java.lang.Integer">
+    select count(*) from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update goods
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodstype != null">
+        goodsType = #{record.goodstype,jdbcType=BIGINT},
+      </if>
+      <if test="record.goodsname != null">
+        goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.producttime != null">
+        productTime = #{record.producttime,jdbcType=DATE},
+      </if>
+      <if test="record.savetime != null">
+        saveTime = #{record.savetime,jdbcType=DATE},
+      </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update goods
+    set id = #{record.id,jdbcType=VARCHAR},
+      goodsType = #{record.goodstype,jdbcType=BIGINT},
+      goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      productTime = #{record.producttime,jdbcType=DATE},
+      saveTime = #{record.savetime,jdbcType=DATE},
+      amount = #{record.amount,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bwl.pojo.Goods">
+    update goods
+    <set>
+      <if test="goodstype != null">
+        goodsType = #{goodstype,jdbcType=BIGINT},
+      </if>
+      <if test="goodsname != null">
+        goodsName = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="producttime != null">
+        productTime = #{producttime,jdbcType=DATE},
+      </if>
+      <if test="savetime != null">
+        saveTime = #{savetime,jdbcType=DATE},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bwl.pojo.Goods">
+    update goods
+    set goodsType = #{goodstype,jdbcType=BIGINT},
+      goodsName = #{goodsname,jdbcType=VARCHAR},
+      productTime = #{producttime,jdbcType=DATE},
+      saveTime = #{savetime,jdbcType=DATE},
+      amount = #{amount,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
