@@ -243,6 +243,7 @@
         <module>bwl_ssm_domain</module>
         <module>bwl_ssm_web</module>
         <module>bwl_ssm_util</module>
+        <module>bwl_ssm_security</module>
     </modules>
 
 

@@ -32,11 +32,11 @@ public class GoodsController {
         modelAndView.setViewName("product-list");
         return modelAndView;
     }
-    @RequestMapping("goodsInfo.do")
-    @ResponseBody
-    public List<Goods> goodsInfo(){
-        return goodService.getGoods();
-    }
+//    @RequestMapping("goodsInfo.do")
+//    @ResponseBody
+//    public List<Goods> goodsInfo(){
+//        return goodService.getGoods();
+//    }
 
     @RequestMapping("/{path}")
     public String path(@PathVariable String path) {

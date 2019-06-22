@@ -19,6 +19,7 @@ public class IUserServiceDetail implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        System.out.println(s);
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernumEqualTo(s);
         List<User> users = userMapper.selectByExample(userExample);

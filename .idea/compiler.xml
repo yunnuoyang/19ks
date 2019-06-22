@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="bwl_ssm_dao" />
         <module name="bwl_ssm_domain" />
+        <module name="bwl_ssm_security" />
         <module name="bwl_ssm_service" />
         <module name="bwl_ssm_util" />
         <module name="bwl_ssm_web" />

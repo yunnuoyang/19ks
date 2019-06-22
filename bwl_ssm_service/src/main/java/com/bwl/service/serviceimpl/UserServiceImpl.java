@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Autowired
     private RoleMapper roleMapper;
-    @Autowired
-    private ResourceMapper resourceMapper;
+//    @Autowired
+//    private ResourceMapper resourceMapper;
 
     @Override
     public List<User> findAllUser() {
